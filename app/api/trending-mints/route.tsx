@@ -23,7 +23,7 @@ init(`${process.env.AIRSTACK_API_KEY}`);
 
 const query = `query MyQuery() {
     TrendingMints(
-      input: {timeFrame: one_hour, audience: farcaster, criteria: unique_wallets, blockchain: base, limit: 5}
+      input: {timeFrame: one_hour, audience: farcaster, criteria: unique_wallets, blockchain: base, limit: 1}
     ) {
       TrendingMint {
         address
@@ -60,23 +60,50 @@ export async function GET(req: NextRequest) {
     //fetch from airstack
     const { data, error } = await fetchQuery(query);
 
-    const sdk = require("api")("@element/v1.0#fvvdrg25ltccp1nr");
-    sdk.auth(process.env.ELEMENT_API_KEY);
+    if (data) {
+      console.log("trending mints api", data);
 
-    const enrichedData = await Promise.all(
-      data.TrendingMints.TrendingMint.map(async (mint: any) => {
-        const elementURL = await fetchElementData(sdk, mint.address);
-        return { ...mint, elementURL };
-      })
+      const sdk = require("api")("@element/v1.0#fvvdrg25ltccp1nr");
+      sdk.auth(process.env.ELEMENT_API_KEY);
+
+      const enrichedData = await Promise.all(
+        data.TrendingMints.TrendingMint.map(async (mint: any) => {
+          const elementURL = await fetchElementData(sdk, mint.address);
+          return { ...mint, elementURL };
+        })
+      );
+      console.log(JSON.stringify(enrichedData));
+
+      return new NextResponse(JSON.stringify(enrichedData), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } else if (error) {
+      console.log("error", error);
+      return new NextResponse(
+        JSON.stringify({ message: "Internal Server Error" }),
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+    }
+    return new NextResponse(
+      JSON.stringify({ message: "Internal Server Error" }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
     );
-    console.log(JSON.stringify(enrichedData));
-    return new NextResponse(JSON.stringify(enrichedData), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
   } catch (error) {
     console.error(error);
     return new NextResponse(
