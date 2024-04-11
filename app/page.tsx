@@ -1,16 +1,12 @@
-import { getFrameMetadata } from "frog/next";
-import type { Metadata } from "next";
+"use client";
+
 import HomePage from "./home";
+import { MetaMaskProvider } from './pages/hooks';
 
-export async function generateMetadata(): Promise<Metadata> {
-  const frameTags = await getFrameMetadata(
-    `${process.env.VERCEL_URL || "http://localhost:3000"}/api`
+export default function IndexPage() {
+  return (
+    <MetaMaskProvider>
+      <HomePage />
+    </MetaMaskProvider>
   );
-  return {
-    other: frameTags,
-  };
-}
-
-export default function Home() {
-  return <HomePage />;
 }
