@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
       })
       // @ts-ignore
       .catch((err) => console.error(err));
-    return new NextResponse(JSON.stringify(casts), {
+    return new NextResponse(casts, {
       status: 200,
       headers: {
         "Content-Type": "application/json",
