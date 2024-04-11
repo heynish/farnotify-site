@@ -23,7 +23,7 @@ init(`${process.env.AIRSTACK_API_KEY}`);
 
 const query = `query MyQuery() {
     TrendingMints(
-      input: {timeFrame: one_hour, audience: farcaster, criteria: unique_wallets, blockchain: base, limit: 1}
+      input: {timeFrame: one_hour, audience: farcaster, criteria: unique_wallets, blockchain: base, limit: ${process.env.MINTS_LIMIT}}
     ) {
       TrendingMint {
         address
