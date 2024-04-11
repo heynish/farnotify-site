@@ -19,10 +19,11 @@ export async function GET(req: NextRequest) {
       })
       // @ts-ignore
       .catch((err) => console.error(err));
-    return new NextResponse(casts, {
+    return new NextResponse(JSON.stringify(casts), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     });
   } catch (error) {
@@ -33,6 +34,7 @@ export async function GET(req: NextRequest) {
         status: 500,
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
       }
     );
