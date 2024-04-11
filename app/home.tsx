@@ -1,10 +1,6 @@
 "use client";
 import Link from "next/link";
-
-import { siteConfig } from "@/config/site";
 import { Button, buttonVariants } from "@/components/ui/button";
-
-import { defaultSnapOrigin } from "./pages/config";
 import {
   useMetaMask,
   useInvokeSnap,
@@ -13,20 +9,17 @@ import {
 } from "./pages/hooks";
 import { isLocalSnap, shouldDisplayReconnectButton, shouldDisplayInstalledButton } from "./pages/utils";
 
+const SNAP_ORIGIN = process.env.NEXT_PUBLIC_SNAP_ORIGIN ?? `local:http://localhost:8080`;
+
 export default function HomePage() {
   const { error } = useMetaMaskContext();
   const { isFlask, snapsDetected, installedSnap } = useMetaMask();
   const requestSnap = useRequestSnap();
-  const invokeSnap = useInvokeSnap();
-  console.log("defaultSnapOrigin", defaultSnapOrigin);
-  console.log("isFlask", isFlask);
-  const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
+  console.log("SNAP_ORIGIN", SNAP_ORIGIN);
+
+  const isMetaMaskReady = isLocalSnap(SNAP_ORIGIN)
     ? isFlask
     : snapsDetected;
-  console.log("isMetaMaskReady", isMetaMaskReady);
-  const handleSendHelloClick = async () => {
-    await invokeSnap({ method: "hello" });
-  };
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex max-w-[980px] flex-col items-start gap-2">
