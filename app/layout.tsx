@@ -11,7 +11,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 export async function generateMetadata(): Promise<Metadata> {
   const frameTags = await getFrameMetadata(
-    `${process.env.VERCEL_URL || "http://localhost:3000"}/api`
+    `${process.env.NEXT_PUBLIC_HOST || "http://localhost:3000"}/api`
   );
   return {
     other: frameTags,
