@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+    images: {
+      domains: ['localhost', 'https://farnotify-site.vercel.app/'],
+    },
+  }
 
 export default nextConfig

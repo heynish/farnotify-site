@@ -1,9 +1,9 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Next.js",
+  name: "FarNotify",
   description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+    "Get hourly notifications about trending mints among Farcaster users and view trending casts directly on MetaMask.",
   mainNav: [
     {
       title: "Home",
@@ -11,8 +11,8 @@ export const siteConfig = {
     },
   ],
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
-    docs: "https://ui.shadcn.com",
+    twitter: "https://twitter.com/MetaMaskDev",
+    github: "https://github.com/heynish/farnotify-snap",
+    docs: "https://docs.metamask.io/snaps/",
   },
 }
