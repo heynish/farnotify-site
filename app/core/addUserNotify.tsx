@@ -163,7 +163,9 @@ export async function verifyAward(fid: number) {
         console.log("Supabase select error:", error);
         return 0; // Return false to indicate the operation failed
     }
-    console.log("data", data.awarded);
-    return data.awarded;
-
+    if (data) {
+        return data.awarded;
+    } else {
+        return 0;
+    }
 }

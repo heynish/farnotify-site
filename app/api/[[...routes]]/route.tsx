@@ -60,7 +60,7 @@ app.frame('/', async (c) => {
         if (!totalLoads) {
           addUser(userData)
         } else if (isAwarded) {
-          const url = `${process.env.NEXT_PUBLIC_HOST}/api/award?fid=${frameData?.fid}`
+          const url = `${process.env.NEXT_PUBLIC_HOST}/api/awarded?fid=${frameData?.fid}&lxp=${isAwarded}`
 
           // quest completed
           return c.res({
@@ -120,7 +120,7 @@ app.frame('/', async (c) => {
 
   }
   if (buttonValue === 'Fourth') {
-    const response = await fetch('https://public-api.phosphor.xyz/v1/purchase-intents', {
+    /* const response = await fetch('https://public-api.phosphor.xyz/v1/purchase-intents', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ app.frame('/', async (c) => {
     } else {
       await addMinted(frameData?.fid || 0);
       const url = `https://lineascan.build/address/${c.var.interactor?.verifiedAddresses.ethAddresses[0]}#tokentxnsErc1155`
-      const urlminted = `${process.env.NEXT_PUBLIC_HOST}/api/minted?address=${c.var.interactor?.verifiedAddresses.ethAddresses[0]}&status=error`
+      const urlminted = `${process.env.NEXT_PUBLIC_HOST}/api/minted?address=${c.var.interactor?.verifiedAddresses.ethAddresses[0]}&status=minted`
 
       //success
       return c.res({
@@ -205,12 +205,22 @@ app.frame('/', async (c) => {
         image: urlminted,
         imageAspectRatio: '1:1',
         intents: [
-          <Button.Link href={url}>View Mint</Button.Link>,
           <Button value="Fifth">Open Mystery Box</Button>,
         ],
       })
-    }
+    } */
+    await addMinted(frameData?.fid || 0);
+    const urlminted = `${process.env.NEXT_PUBLIC_HOST}/api/minted?address=${c.var.interactor?.verifiedAddresses.ethAddresses[0]}&status=minted`
 
+    //success
+    return c.res({
+      action: '/',
+      image: urlminted,
+      imageAspectRatio: '1:1',
+      intents: [
+        <Button value="Fifth">Open Mystery Box</Button>,
+      ],
+    })
   }
   if (buttonValue === 'Fifth') {
     const isMinted = await verifyMint(frameData?.fid || 0);

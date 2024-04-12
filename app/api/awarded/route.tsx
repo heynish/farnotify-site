@@ -3,6 +3,7 @@ import satori from "satori";
 import sharp from 'sharp';
 import { join } from "path";
 import * as fs from "fs";
+import { addAwarded, verifyAward } from '../../core/addUserNotify'
 
 export const dynamic = "force-dynamic";
 
@@ -14,10 +15,9 @@ let bold = fs.readFileSync(boldPath);
 
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
-    const address = searchParams.get('address') ?? "";
-    const status = searchParams.get('amp;status') ?? "";
-
-    console.log("Minted Image", address, status);
+    console.log("searchParams", searchParams);
+    const fid = searchParams.get('fid') ?? "";
+    const lxp = searchParams.get('amp;lxp') ?? "";
 
     const svg = await satori(
         <div
@@ -31,49 +31,37 @@ export async function GET(req: NextRequest) {
                 backgroundColor: "black",
                 padding: 50,
                 lineHeight: 1.2,
-                color: "white",
-                backgroundImage: `url(${process.env.NEXT_PUBLIC_HOST}/images/mintimage.png)`,
+                color: "black",
+                backgroundImage: `url(${process.env.NEXT_PUBLIC_HOST}/images/lxp.png)`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
-
             }}
         >
             <div
                 style={{
                     display: "flex",
                     flexDirection: "column",
-                    backgroundColor: "rgba(0, 0, 0, 0.7)",
-                    padding: "4px 8px",
-                    borderRadius: "4px"
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontFamily: 'Atyp',
+                    fontSize: 32,
                 }}
             >
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        textAlign: "center",
-                        fontFamily: 'Atyp',
-                        fontSize: 24,
-
-                    }}
-                >
-                    {status}
-                </div>
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        textAlign: "center",
-                        fontFamily: 'Atyp',
-                        fontSize: 16,
-                        marginTop: 12
-                    }}
-                >
-                    {address}
-                </div>
-
+                <span style={{ marginBottom: 4 }}>Completed!</span>
+                <br />
+                <span>You won {lxp}{" "} LXP</span>
+            </div>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontFamily: 'Atyp',
+                    fontSize: 16,
+                    marginTop: 16,
+                }}
+            >
+                It will be minted on June 1st 2024.
             </div>
         </div>,
         {
@@ -95,7 +83,6 @@ export async function GET(req: NextRequest) {
             ],
         },
     );
-
     const img = await sharp(Buffer.from(svg))
         .resize(500)
         .toFormat("png")
