@@ -8,6 +8,9 @@ import {
   useRequestSnap,
 } from "./pages/hooks";
 import { isLocalSnap, shouldDisplayReconnectButton, shouldDisplayInstalledButton } from "./pages/utils";
+import { addVerify } from '../app/core/addUserNotify'
+import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
 
 const SNAP_ORIGIN = process.env.NEXT_PUBLIC_SNAP_ORIGIN ?? `local:http://localhost:8080`;
 
@@ -15,11 +18,33 @@ export default function HomePage() {
   const { error } = useMetaMaskContext();
   const { isFlask, snapsDetected, installedSnap } = useMetaMask();
   const requestSnap = useRequestSnap();
-  console.log("SNAP_ORIGIN", SNAP_ORIGIN);
 
   const isMetaMaskReady = isLocalSnap(SNAP_ORIGIN)
     ? isFlask
     : snapsDetected;
+
+  const [fid, setFid] = useState('');
+
+  useEffect(() => {
+    // Use URLSearchParams to parse the query string
+    const queryParams = new URLSearchParams(window.location.search);
+    const fidValue = queryParams.get('fid') || '';
+    setFid(fidValue);
+  }, []);
+
+
+  useEffect(() => {
+    async function checkAndVerify() {
+      console.log("fid", fid);
+      //if (fid && installedSnap) {
+      if (fid) {
+        console.log("add verify");
+        await addVerify(Number(fid));
+      }
+    }
+    checkAndVerify();
+  }, [fid, installedSnap]);
+
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex max-w-[980px] flex-col items-start gap-2">
