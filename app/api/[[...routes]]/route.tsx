@@ -120,7 +120,7 @@ app.frame('/', async (c) => {
 
   }
   if (buttonValue === 'Fourth') {
-    /* const response = await fetch('https://public-api.phosphor.xyz/v1/purchase-intents', {
+    const response = await fetch('https://public-api.phosphor.xyz/v1/purchase-intents', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -208,7 +208,7 @@ app.frame('/', async (c) => {
           <Button value="Fifth">Open Mystery Box</Button>,
         ],
       })
-    } */
+    }
     await addMinted(frameData?.fid || 0);
     const urlminted = `${process.env.NEXT_PUBLIC_HOST}/api/minted?address=${c.var.interactor?.verifiedAddresses.ethAddresses[0]}&status=minted`
 
