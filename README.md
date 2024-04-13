@@ -1,6 +1,5 @@
-```
-npm install
-npm run dev
-```
+# FarNotify Snap Companion Dapp
 
-Head to http://localhost:3000/api
+Get hourly notifications about trending mints among Farcaster users and view trending casts directly on MetaMask.
+
+Snaps is an open source system that allows anyone to safely extend the functionality of MetaMask, creating new web3 end user experiences.
