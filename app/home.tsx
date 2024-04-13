@@ -84,7 +84,7 @@ export default function HomePage() {
                   className={buttonVariants({ variant: "outline" })}
                 >
                   Explore Snaps
-                  <ArrowTopRightOnSquareIcon className="h-6 w-6 text-blue-500" />
+                  <ArrowTopRightOnSquareIcon className="h-5 w-5 ml-2" />
                 </Link>
               </div>
             )}
@@ -101,7 +101,7 @@ export default function HomePage() {
                   className={buttonVariants({ variant: "outline" })}
                 >
                   Explore Snaps
-                  <ArrowTopRightOnSquareIcon className="h-6 w-6 text-blue-500" />
+                  <ArrowTopRightOnSquareIcon className="h-5 w-5 ml-2" />
                 </Link>
               </div>
             )}
@@ -135,7 +135,7 @@ export default function HomePage() {
                   className={buttonVariants({ variant: "outline" })}
                 >
                   Explore Snaps
-                  <ArrowTopRightOnSquareIcon className="h-6 w-6 text-blue-500" />
+                  <ArrowTopRightOnSquareIcon className="h-5 w-5 ml-2" />
                 </Link>
               </div>
             )}
@@ -149,7 +149,7 @@ export default function HomePage() {
 
         <div className="flex flex-col justify-center h-full">
           <Image
-            src={`${process.env.NEXT_PUBLIC_HOST}/assets/hero.png`} // External URL
+            src={`${process.env.NEXT_PUBLIC_HOST}/assets/hero.png`}
             alt="Hero image"
             width={500}
             height={300}
