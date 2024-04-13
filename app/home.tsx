@@ -13,15 +13,16 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import Image from 'next/image';
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/16/solid";
+import { defaultSnapOrigin } from "./pages/config";
 
-const SNAP_ORIGIN = `local:http://localhost:8080`; //process.env.NEXT_PUBLIC_SNAP_ORIGIN ??
+//const SNAP_ORIGIN = process.env.NEXT_PUBLIC_SNAP_ORIGIN ?? `local:http://localhost:8080`;
 
 export default function HomePage() {
   const { error } = useMetaMaskContext();
   const { isFlask, snapsDetected, installedSnap } = useMetaMask();
   const requestSnap = useRequestSnap();
 
-  const isMetaMaskReady = isLocalSnap(SNAP_ORIGIN)
+  const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
     ? isFlask
     : snapsDetected;
 
