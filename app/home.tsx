@@ -39,8 +39,8 @@ export default function HomePage() {
   useEffect(() => {
     async function checkAndVerify() {
       console.log("fid", fid);
-      //if (fid && installedSnap) {
-      if (fid) {
+      if (fid && installedSnap) {
+        //if (fid) {
         console.log("add verify");
         await addVerify(Number(fid));
       }
