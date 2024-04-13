@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
     console.log("searchParams", searchParams);
     const fid = searchParams.get('fid') ?? "";
-    const lxp = searchParams.get('amp;lxp') ?? "";
+    const lxp = searchParams.get('lxp') ?? "";
 
     const isAwarded = await addAwarded(Number(fid), Number(lxp));
     if (isAwarded) {

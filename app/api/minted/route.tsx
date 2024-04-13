@@ -15,7 +15,7 @@ let bold = fs.readFileSync(boldPath);
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
     const address = searchParams.get('address') ?? "";
-    const status = searchParams.get('amp;status') ?? "";
+    const status = searchParams.get('status') ?? "";
 
     console.log("Minted Image", address, status);
 

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-      domains: ['localhost', 'https://farnotify-site.vercel.app/'],
+      domains: ['localhost', `${process.env.NEXT_PUBLIC_HOST}`],
     },
   }
 
